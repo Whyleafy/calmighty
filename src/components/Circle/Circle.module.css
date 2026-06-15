@@ -25,10 +25,6 @@
   animation: inhaleRings var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.ringsHold {
-  /* стили задаются через inline style, чтобы сохранить плавный переход */
-}
-
 .ringsExhale {
   animation: exhaleRings var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -45,10 +41,6 @@
 
 .textInhale {
   animation: inhaleText var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.textHold {
-  /* стили задаются через inline style */
 }
 
 .textExhale {

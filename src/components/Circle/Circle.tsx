@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useLayoutEffect, useState } from "react";
 import clsx from "clsx";
 import classes from "./Circle.module.css";
 
@@ -12,11 +12,11 @@ interface CircleProps {
 
 export const Circle = ({ text, phase, duration }: CircleProps) => {
   const prevPhaseRef = useRef<"inhale" | "hold" | "exhale">(phase);
-  const [holdScaleRings, setHoldScaleRings] = useState<number>(0.7);
-  const [holdOpacityRings, setHoldOpacityRings] = useState<number>(0.3);
-  const [holdScaleText, setHoldScaleText] = useState<number>(0.7);
+  const [holdScaleRings, setHoldScaleRings] = useState(0.7);
+  const [holdOpacityRings, setHoldOpacityRings] = useState(0.3);
+  const [holdScaleText, setHoldScaleText] = useState(0.7);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (phase === "hold") {
       const prev = prevPhaseRef.current;
       if (prev === "inhale") {
@@ -57,7 +57,6 @@ export const Circle = ({ text, phase, duration }: CircleProps) => {
         })}
         style={phase === "hold" ? ringsHoldStyle : undefined}
       />
-
       <h2
         className={clsx(classes.h2, {
           [classes.textInhale]: phase === "inhale",
