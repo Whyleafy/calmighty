@@ -10,7 +10,8 @@ body {
 :root {
   --base-color: #F5F3F3;
   --primary-color: #1944F1;
-  --primary-hover: #0D36D8
+  --primary-hover: #0D36D8;
+  --primary-pale: rgba(25, 68, 241, 0.4);
 }
 
 * {

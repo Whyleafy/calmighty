@@ -3,7 +3,7 @@
     outline: 2px solid #DDE4FD;
     background-color: #F1EEEE;
     padding: 16px;
-    width: clamp(400px, 50vw, 800px);
+    width: clamp(300px, 50vw, 800px);
 }
 
 .description {

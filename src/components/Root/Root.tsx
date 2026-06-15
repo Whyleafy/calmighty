@@ -22,10 +22,29 @@ function RootInner({ children }: PropsWithChildren) {
   const isDark = useSignal(miniApp.isDark);
   const initDataUser = useSignal(initData.user);
 
-  // Set the user locale.
   useEffect(() => {
-    initDataUser && setLocale(initDataUser.language_code);
+    if (initDataUser) {
+      setLocale(initDataUser.language_code);
+    }
   }, [initDataUser]);
+
+  useEffect(() => {
+    try {
+      if (miniApp.mount?.isAvailable?.()) {
+        miniApp.mount();
+      }
+
+      if (miniApp.expand?.isAvailable?.()) {
+        miniApp.expand();
+      }
+
+      if (miniApp.requestFullscreen?.isAvailable?.()) {
+        miniApp.requestFullscreen();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <AppRoot
@@ -38,9 +57,6 @@ function RootInner({ children }: PropsWithChildren) {
 }
 
 export function Root(props: PropsWithChildren) {
-  // Unfortunately, Telegram Mini Apps does not allow us to use all features of
-  // the Server Side Rendering. That's why we are showing loader on the server
-  // side.
   const didMount = useDidMount();
 
   return didMount ? (
