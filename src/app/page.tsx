@@ -73,14 +73,16 @@ export default function Home() {
         })}
       </div>
 
-      <section className={classes.stage}>
-        <Circle
-          key={activeExercise.id}
-          text={getPhaseText(currentPhase.type)}
-          phase={currentPhase.type}
-          duration={currentPhase.duration}
-        />
-      </section>
+      <Reveal>
+        <section className={classes.stage}>
+          <Circle
+            key={activeExercise.id}
+            text={getPhaseText(currentPhase.type)}
+            phase={currentPhase.type}
+            duration={currentPhase.duration}
+          />
+        </section>
+      </Reveal>
       <DescriptionCard>{activeExercise.description}</DescriptionCard>
     </main>
   );

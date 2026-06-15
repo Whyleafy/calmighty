@@ -47,7 +47,5 @@ export function Root(props: PropsWithChildren) {
     <ErrorBoundary fallback={ErrorPage}>
       <RootInner {...props} />
     </ErrorBoundary>
-  ) : (
-    <div className="root__loading">Loading</div>
-  );
+  ) : null;
 }

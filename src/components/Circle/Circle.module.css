@@ -7,7 +7,7 @@
   justify-content: center;
   border-radius: 50%;
   border: 2px solid var(--primary-pale);
-  background-color: #ffffff;
+  background-color: var(--base-color);
   box-shadow: 4px 4px 37.5px 2px rgba(21, 63, 162, 20%), 0px 10px 34.099998474121094px -20px #4467f1;
   overflow: hidden;
 }
@@ -26,8 +26,7 @@
 }
 
 .ringsHold {
-  transform: scale(1.05);
-  opacity: 1;
+  /* стили задаются через inline style, чтобы сохранить плавный переход */
 }
 
 .ringsExhale {
@@ -49,7 +48,7 @@
 }
 
 .textHold {
-  transform: scale(1.1);
+  /* стили задаются через inline style */
 }
 
 .textExhale {
@@ -59,7 +58,7 @@
 @keyframes inhaleRings {
   from {
     transform: scale(0.7);
-    opacity: 0.7;
+    opacity: 0.3;
   }
   to {
     transform: scale(1.05);
@@ -74,7 +73,7 @@
   }
   to {
     transform: scale(0.7);
-    opacity: 0.7;
+    opacity: 0.3;
   }
 }
 
