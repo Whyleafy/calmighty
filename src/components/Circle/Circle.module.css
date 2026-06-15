@@ -1,0 +1,97 @@
+.circle {
+  position: relative;
+  width: min(72vw, 400px);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #1944f1;
+  background-color: #ffffff;
+  box-shadow: 0 10px 30px rgba(25, 68, 241, 0.08);
+  overflow: hidden;
+}
+
+.rings {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.ringsInhale {
+  animation: inhaleRings var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.ringsHold {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+.ringsExhale {
+  animation: exhaleRings var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: #1944f1;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 600;
+  will-change: transform;
+}
+
+.textInhale {
+  animation: inhaleText var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.textHold {
+  transform: scale(1.1);
+}
+
+.textExhale {
+  animation: exhaleText var(--duration) cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes inhaleRings {
+  from {
+    transform: scale(0.65);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes exhaleRings {
+  from {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.65);
+    opacity: 0.7;
+  }
+}
+
+@keyframes inhaleText {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes exhaleText {
+  from {
+    transform: scale(1.1);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}

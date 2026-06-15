@@ -1,0 +1,48 @@
+.footer {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px
+}
+
+.author {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-right: 1px solid black;
+    padding-inline: 8px;
+}
+
+.authorNote {
+    color: black;
+    font-size: 12px;
+}
+
+.link:hover {
+    color: var(--primary-hover)
+}
+
+.link, .note {
+    color: var(--primary-color);
+    transition: hover 0.2s ease-in-out;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .author {
+        border: none;
+    }
+}

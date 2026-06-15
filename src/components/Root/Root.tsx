@@ -29,8 +29,7 @@ function RootInner({ children }: PropsWithChildren) {
   }, [initDataUser]);
 
   return (
-    <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
-      <AppRoot
+    <AppRoot
         appearance={isDark ? 'dark' : 'light'}
         platform={
           ['macos', 'ios'].includes(lp.tgWebAppPlatform) ? 'ios' : 'base'
@@ -38,7 +37,6 @@ function RootInner({ children }: PropsWithChildren) {
       >
         {children}
       </AppRoot>
-    </TonConnectUIProvider>
   );
 }
 

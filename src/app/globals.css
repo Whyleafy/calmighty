@@ -1,0 +1,18 @@
+body {
+  background-color: var(--base-color);
+  background-image: url("/background.svg");
+  background-size: cover;
+  padding: 0;
+  margin: 0;
+  height: 100svh;
+}
+
+:root {
+  --base-color: #F5F3F3;
+  --primary-color: #1944F1;
+  --primary-hover: #0D36D8
+}
+
+* {
+  margin: 0;
+}

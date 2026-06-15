@@ -1,63 +1,87 @@
-'use client';
+"use client";
 
-import { Section, Cell, Image, List } from '@telegram-apps/telegram-ui';
-import { useTranslations } from 'next-intl';
-
-import { Link } from '@/components/Link/Link';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher/LocaleSwitcher';
-import { Page } from '@/components/Page';
-
-import tonSvg from './_assets/ton.svg';
+import { useEffect, useState } from "react";
+import classes from "./page.module.css";
+import { Button } from "@/components/Button";
+import { Circle } from "@/components/Circle/Circle";
+import { breathes, BreathingExercise } from "./breathing";
+import { Reveal } from "@/components/Reveal";
+import { DescriptionCard } from "@/components/DescriptionCard/DescriptionCard";
 
 export default function Home() {
-  const t = useTranslations('i18n');
+  const [activeExercise, setActiveExercise] = useState<BreathingExercise>(
+    breathes[0]
+  );
+
+  const [phaseIndex, setPhaseIndex] = useState(0);
+
+  const currentPhase = activeExercise.phases[phaseIndex];
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setPhaseIndex((prev) => (prev + 1) % activeExercise.phases.length);
+    }, currentPhase.duration * 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [activeExercise, phaseIndex, currentPhase.duration]);
+
+  const handleSelectExercise = (exercise: BreathingExercise) => {
+    setActiveExercise(exercise);
+    setPhaseIndex(0);
+  };
+
+  const getPhaseText = (type: string) => {
+    switch (type) {
+      case "inhale":
+        return "Вдох";
+      case "hold":
+        return "Задержка";
+      case "exhale":
+        return "Выдох";
+      default:
+        return "Начать";
+    }
+  };
 
   return (
-    <Page back={false}>
-      <List>
-        <Section
-          header="Features"
-          footer="You can use these pages to learn more about features, provided by Telegram Mini Apps and other useful projects"
-        >
-          <Link href="/ton-connect">
-            <Cell
-              before={
-                <Image
-                  src={tonSvg.src}
-                  style={{ backgroundColor: '#007AFF' }}
-                  alt="TON Logo"
-                />
-              }
-              subtitle="Connect your TON wallet"
-            >
-              TON Connect
-            </Cell>
-          </Link>
-        </Section>
-        <Section
-          header="Application Launch Data"
-          footer="These pages help developer to learn more about current launch information"
-        >
-          <Link href="/init-data">
-            <Cell subtitle="User data, chat information, technical data">
-              Init Data
-            </Cell>
-          </Link>
-          <Link href="/launch-params">
-            <Cell subtitle="Platform identifier, Mini Apps version, etc.">
-              Launch Parameters
-            </Cell>
-          </Link>
-          <Link href="/theme-params">
-            <Cell subtitle="Telegram application palette information">
-              Theme Parameters
-            </Cell>
-          </Link>
-        </Section>
-        <Section header={t('header')} footer={t('footer')}>
-          <LocaleSwitcher />
-        </Section>
-      </List>
-    </Page>
+    <main className={classes.page}>
+      <div className={classes.container}>
+        <h1 className={classes.h1}>Спокойное дыхание</h1>
+
+        <p className={classes.note}>
+          Выберите дыхательную практику и следуйте за кругом. Размер круга
+          подскажет, когда вдыхать, задерживать дыхание и выдыхать. Всего
+          несколько минут помогут снизить напряжение, восстановить концентрацию
+          и почувствовать больше спокойствия.
+        </p>
+      </div>
+
+      <div className={classes.buttons}>
+        {breathes.map((exercise) => {
+          const isActive = activeExercise.id === exercise.id;
+
+          return (
+            <Reveal key={exercise.id}>
+              <Button
+                isActive={isActive}
+                onClick={() => handleSelectExercise(exercise)}
+              >
+                {exercise.name}
+              </Button>
+            </Reveal>
+          );
+        })}
+      </div>
+
+      <section className={classes.stage}>
+        <Circle
+          key={activeExercise.id}
+          text={getPhaseText(currentPhase.type)}
+          phase={currentPhase.type}
+          duration={currentPhase.duration}
+        />
+      </section>
+      <DescriptionCard>{activeExercise.description}</DescriptionCard>
+    </main>
   );
 }

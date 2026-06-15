@@ -1,0 +1,18 @@
+.button {
+    display: inline-flex;
+    padding: 8px 16px;
+    font-size: 14px;
+    line-height: 24px; 
+    border-radius: 8px;
+    border: none;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    outline: 1px solid var(--primary-color);
+    background: transparent;
+    color: var(--primary-color);
+}
+
+.active {
+    color: var(--base-color);
+    background-color: var(--primary-color)
+}
