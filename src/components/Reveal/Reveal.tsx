@@ -32,7 +32,7 @@ export function Reveal({
           }
         });
       },
-      { threshold: 0.75 }
+      { threshold: 0.45 }
     );
 
     io.observe(el);
