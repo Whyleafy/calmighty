@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import classes from "./page.module.css";
 import { Button } from "@/components/Button";
 import { Circle } from "@/components/Circle/Circle";
@@ -15,6 +15,9 @@ export default function Home() {
 
   const [phaseIndex, setPhaseIndex] = useState(0);
 
+  const inhaleAudioRef = useRef<HTMLAudioElement>(null);
+  const exhaleAudioRef = useRef<HTMLAudioElement>(null);
+
   const currentPhase = activeExercise.phases[phaseIndex];
 
   useEffect(() => {
@@ -24,6 +27,18 @@ export default function Home() {
 
     return () => clearTimeout(timeoutId);
   }, [activeExercise, phaseIndex, currentPhase.duration]);
+
+  useEffect(() => {
+    if (currentPhase.type === "inhale" && inhaleAudioRef.current) {
+      inhaleAudioRef.current.currentTime = 0;
+      inhaleAudioRef.current.play().catch(() => {});
+    }
+
+    if (currentPhase.type === "exhale" && exhaleAudioRef.current) {
+      exhaleAudioRef.current.currentTime = 0;
+      exhaleAudioRef.current.play().catch(() => {});
+    }
+  }, [currentPhase.type]);
 
   const handleSelectExercise = (exercise: BreathingExercise) => {
     setActiveExercise(exercise);
@@ -45,6 +60,9 @@ export default function Home() {
 
   return (
     <main className={classes.page}>
+      <audio ref={inhaleAudioRef} src="/breathe/inhale.mp3" preload="auto" />
+      <audio ref={exhaleAudioRef} src="/breathe/exhale.mp3" preload="auto" />
+
       <div className={classes.container}>
         <h1 className={classes.h1}>Спокойное дыхание</h1>
 
@@ -83,6 +101,7 @@ export default function Home() {
           />
         </section>
       </Reveal>
+
       <DescriptionCard>{activeExercise.description}</DescriptionCard>
     </main>
   );
